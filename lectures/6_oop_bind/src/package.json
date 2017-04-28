@@ -1,0 +1,40 @@
+{
+  "name": "kenshoo",
+  "devDependencies": {
+    "grunt": "latest",
+    "autoprefixer": "^6.3.3",
+    "grunt-contrib-sass": "latest",
+    "grunt-postcss": "^0.8.0",
+    "postcss-sorting": "^1.2.2",
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.6",
+    "grunt-contrib-watch": "latest"
+  },
+  "build": {
+    "css": "../styles/",
+    "js": {
+      "main": "../js",
+      "prefix": "../"
+    }
+  },
+  "src": {
+    "css": "scss/",
+    "js": {
+      "main": "js/",
+      "cacheEs6": ".js-cache/es6",
+      "cacheEs5": ".js-cache/es5",
+      "cacheLibs": ".js-cache/libs",
+      "cache": ".js-cache"
+    }
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-pug": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-jade": "^0.5.1",
+    "load-grunt-tasks": "^3.5.2",
+    "pixrem": "^3.0.2"
+  }
+}

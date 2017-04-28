@@ -1,0 +1,11 @@
+*~
+.svn
+.cvs
+.git
+gt-cache
+?sass-cache
+bower_components
+node_modules
+npm-debug.log
+error_log
+*deploy*

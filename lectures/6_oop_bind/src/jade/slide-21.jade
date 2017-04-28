@@ -1,0 +1,72 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+				
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+				
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+				
+				// И последнее
+				// createWrapper переименовываем в bind -
+				// эта функция берет какой-то метод
+				// и привязывает к нему this навсегда
+				function bind( fn, context ) {
+					return function() { 
+						fn.call( context );
+					}
+				}
+				
+				var f = bind( petya.sayMyName, petya );
+				
+				// и как б не запускалась f,
+				// у нее в this всегда будет petya
+				
+				setTimeout( f, 2000 );
+				
+				petya = null;
+				
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+					f: #f2
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				#createWrapper {
+					[[scope]]: window
+					[[code]]: ...
+				}
+				
+				#LE_createWrapper_0 {
+				
+				}
+				
+				#f2 {
+					[[scope]]: #LE_createWrapper_0
+					[[code]]: ...
+				}
+				
+				
+				
+
+

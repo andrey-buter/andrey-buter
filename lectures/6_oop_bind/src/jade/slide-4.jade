@@ -1,0 +1,52 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+				
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+				
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+				
+				// petya.sayMyName();
+				
+				// естесственно код с #f1 не валидный, 
+				// поэтому будет так
+				setTimeout( sayMyName, 2000 );
+				
+				// т.е. sayMyName будет запущена через 2с
+				
+				
+				
+				
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				
+				
+				
+				
+				
+
+

@@ -1,0 +1,72 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+				
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+				
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+				
+				// А как сделать так, чтоб
+				// createWrapper стал универсальным
+				// и мог работать не только с petya.sayMyName()
+				
+				function createWrapper() {
+					var tempPetya = petya;
+					
+					return function() { 
+					// Мы можем сделать тождественное преобразование
+						tempPetya.sayMyName.call( tempPetya );
+					}
+				}
+				
+				var f = createWrapper();
+				
+				setTimeout( f, 2000 );
+				
+				petya = null;
+				
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+					f: #f2
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				#createWrapper {
+					[[scope]]: window
+					[[code]]: ...
+				}
+				
+				#LE_createWrapper_0 {
+				
+				}
+				
+				#f2 {
+					[[scope]]: #LE_createWrapper_0
+					[[code]]: ...
+				}
+				
+				
+				
+
+

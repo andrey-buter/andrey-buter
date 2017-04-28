@@ -1,0 +1,159 @@
+.slide {
+	padding-top: 60px;
+}
+
+.col-50 {
+	width: 50%;
+	float: left;
+	box-sizing:  border-box;
+	padding: 0 20px;
+}
+.clear {
+	clear: both;
+}
+.slide.my-code {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	font-size: 16px;
+	background-color: #141414;
+	color: #fff;
+	overflow-y: auto;
+
+	&:before {
+		content: '';
+		height: 100%;
+		width: 2px;
+		background-color: #585a5e;
+		position: absolute;
+		left: 50%;
+		top: 0;
+	}
+
+	&:after {
+		background: rgba( #fff, .5 );
+		height: 50px;
+		padding-top: 0;
+		right: 0;
+	}
+
+	.col-50 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	// pre {
+	// 	color: #fff;
+
+	// 	code {
+	// 		width: calc( 100% + 20px );
+	// 		margin-left: -20px;
+	// 		padding-left: 46px;
+	// 	}
+	// }
+}
+// .slide pre code:not(:only-child)::before {
+// 	margin-left: -45px;
+// 	padding-left: 10px;
+// 	background-color: #333333;
+// }
+.slide::after {
+	background: none;
+	background: red;
+	height: 50px;
+	padding-top: 0;
+	right: 0;
+}
+// .green {
+// 	color: #8f9d6a;
+// }
+
+// .bold {
+// 	font-weight: bold;
+// }
+// .func {
+// 	color: #9b703f;
+// 	background: none !important;
+// }
+// .brown {
+// 	color: #9b703f;
+// }
+// .yellow {
+// 	color: #f9ee98;
+// 	background: none !important;
+// }
+// .blue {
+// 	color: #7587a6;
+// }
+// .func2 {
+// 	background: none !important;
+// 	color: #7587a6;
+// }
+// .orange {
+// 	color: #cda869;
+// }
+// .slide pre mark {
+// 	z-index: 1;
+// }
+
+// .pink {
+// 	color: #9b859d;
+// }
+
+// .red {
+// 	color: #cf6a4c;
+// }
+
+// .gray {
+// 	color: gray;
+
+// 	span {
+// 		color: gray !important;
+// 	}
+// }
+
+
+.slide-prism {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	font-size: 15px;
+	overflow-y: auto;
+	background-color: #1d1f21;
+
+	// &:before {
+	// 	content: '';
+	// 	height: 100%;
+	// 	width: 2px;
+	// 	background-color: #585a5e;
+	// 	position: absolute;
+	// 	left: 50%;
+	// 	top: 0;
+	// }
+
+	&:after {
+		background: rgba( #fff, .5 );
+		height: 50px;
+		padding-top: 0;
+		right: 0;
+	}
+
+	.col-50 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	pre {
+		margin-top: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-bottom: 0;
+
+		code {
+			margin-left: 0;
+			width: auto;
+			padding-left: 0;
+			line-height: 1.6;
+		}
+	}
+}

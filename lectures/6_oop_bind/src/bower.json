@@ -1,0 +1,9 @@
+{
+  "name": "lectures",
+  "version": "1.0",
+  "dependencies": {
+    "prism": "^1.6.0"
+  },
+  "private": true,
+  "devDependencies": {}
+}

@@ -1,0 +1,29 @@
+section.slide.slide-prism 
+	pre.line-numbers
+		code.language-javascript.
+			// Пример публичных и приватных методов объекта
+			function CoffeeMachine(power) {
+				this.waterAmount = 0;
+
+				// расчёт времени для кипячения
+				// Как и с локальным свойством, локальная функция - это приватный метод
+				function getBoilTime() {
+					return 1000; // точная формула расчета будет позже
+				}
+
+				// что делать по окончании процесса
+				function onReady() {
+					alert( 'Кофе готово!' );
+				}
+
+				// Функция, записанная в this - публичный метод (см. строку 26)
+				this.run = function() {
+					// она запустит onReady через getBoilTime() миллисекунд
+					setTimeout(onReady, getBoilTime());
+				};
+			}
+
+			var coffeeMachine = new CoffeeMachine(100);
+			coffeeMachine.waterAmount = 200;
+
+			coffeeMachine.run();

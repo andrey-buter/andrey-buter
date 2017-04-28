@@ -1,0 +1,38 @@
+section.slide.slide-prism 
+	pre.line-numbers
+		code.language-javascript.
+			// capacity - ёмкость кофеварки
+			function CoffeeMachine( power, capacity ) {
+				// Для лучшего контроля над свойством его делают приватным, 
+				// а запись значения осуществляется через специальный метод, 
+				// который называют «сеттер» (setter method).
+				// Типичное название для сеттера – setСвойство,
+				// в данном примере это setWaterAmount (см. ниже)
+				var waterAmount = 0;
+				var WATER_HEAT_CAPACITY = 4200;
+
+				function getTimeToBoil() {
+					return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+				}
+
+				// "умная" установка свойства
+				this.setWaterAmount = function( amount ) {
+					if ( amount < 0 )
+						throw new Error( "Значение должно быть положительным" );
+					
+					if ( amount > capacity ) 
+						throw new Error( "Нельзя залить воды больше, чем " + capacity );
+
+					waterAmount = amount;
+				};
+
+				function onReady() { alert( 'Кофе готов!' ); }
+
+				this.run = function() { setTimeout( onReady, getTimeToBoil() ); };
+			}
+
+			var capacity = 500; // capacity - ёмкость кофеварки
+			var coffeeMachine = new CoffeeMachine( 1000, capacity );
+			
+			coffeeMachine.setWaterAmount( 600 ); // упс, ошибка!
+			 

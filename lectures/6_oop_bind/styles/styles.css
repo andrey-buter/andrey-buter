@@ -1,0 +1,221 @@
+/**
+ * atom-dark theme for `prism.js`
+ * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
+ * @author Joe Gibson (@gibsjose)
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #c5c8c6;
+  text-align: left;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  line-height: 1.5;
+  direction: ltr; }
+
+/* Code blocks */
+pre[class*="language-"] {
+  overflow: auto;
+  margin: .5em 0;
+  padding: 1em; }
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #1d1f21; }
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em; }
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #7C7C7C; }
+
+.token.punctuation {
+  color: #c5c8c6; }
+
+.namespace {
+  opacity: .7; }
+
+.token.property,
+.token.keyword,
+.token.tag {
+  color: #96CBFE; }
+
+.token.class-name {
+  color: #FFFFB6;
+  text-decoration: underline; }
+
+.token.boolean,
+.token.constant {
+  color: #99CC99; }
+
+.token.symbol,
+.token.deleted {
+  color: #f92672; }
+
+.token.number {
+  color: #FF73FD; }
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #A8FF60; }
+
+.token.variable {
+  color: #C6C5FE; }
+
+.token.operator {
+  color: #EDEDED; }
+
+.token.entity {
+  color: #FFFFB6;
+
+  /* text-decoration: underline; */ }
+
+.token.url {
+  color: #96CBFE; }
+
+.language-css .token.string,
+.style .token.string {
+  color: #87C38A; }
+
+.token.atrule,
+.token.attr-value {
+  color: #F9EE98; }
+
+.token.function {
+  color: #DAD085; }
+
+.token.regex {
+  color: #E9C062; }
+
+.token.important {
+  color: #fd971f; }
+
+.token.important,
+.token.bold {
+  font-weight: bold; }
+
+.token.italic {
+  font-style: italic; }
+
+.token.entity {
+  cursor: help; }
+
+pre.line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber; }
+
+pre.line-numbers > code {
+  position: relative; }
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  top: 0;
+  left: -3.8em;
+  width: 3em;
+  border-right: 1px solid #999;
+  /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  font-size: 100%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+  pointer-events: none; }
+
+.line-numbers-rows > span:before {
+  display: block;
+  padding-right: 0.8em;
+  color: #999;
+  content: counter(linenumber);
+  text-align: right; }
+
+.col-50 {
+  float: left;
+  box-sizing: border-box;
+  padding: 0 20px;
+  width: 50%; }
+
+.clear {
+  clear: both; }
+
+.slide.my-code {
+  overflow-y: auto;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  background-color: #141414;
+  color: #fff;
+  font-size: 16px; }
+  .slide.my-code:before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: #585a5e;
+    content: ''; }
+  .slide.my-code:after {
+    right: 0;
+    padding-top: 0;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.5); }
+  .slide.my-code .col-50 {
+    padding-right: 0;
+    padding-left: 0; }
+
+.slide::after {
+  right: 0;
+  padding-top: 0;
+  height: 50px;
+  background: none;
+  background: red; }
+
+.slide-prism {
+  overflow-y: auto;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  background-color: #1d1f21;
+  font-size: 15px; }
+  .slide-prism:after {
+    right: 0;
+    padding-top: 0;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.5); }
+  .slide-prism .col-50 {
+    padding-right: 0;
+    padding-left: 0; }
+  .slide-prism pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0; }
+    .slide-prism pre code {
+      margin-left: 0;
+      padding-left: 0;
+      width: auto;
+      line-height: 1.6; }
+
+/*# sourceMappingURL=styles.css.map */

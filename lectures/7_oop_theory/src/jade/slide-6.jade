@@ -1,0 +1,29 @@
+section.slide.slide-prism 
+	div
+		pre.line-numbers
+			code.language-javascript.
+				'use strict'
+
+				function User(name) {
+
+					this.sayHi = function() {
+						alert( "Привет, я " + name );
+					};
+
+					this.showHi = function() {
+						console.log( "Привет, я " + name );
+					};
+
+				}
+
+				var vasya = new User("Вася"); // создали пользователя
+				vasya.sayHi(); // пользователь умеет говорить "Привет"
+
+
+
+
+
+
+
+
+

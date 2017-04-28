@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Лекция 7 - ООП</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="styles/screen-16x10.css" type="text/css" rel="stylesheet">
+    <link href="styles/styles.css" type="text/css" rel="stylesheet">
+    <script src="//localhost:35729/livereload.js"></script>
+  </head>
+  <body class="shower list">
+    <header class="caption">
+      <h1>ООП</h1>
+    </header>
+    <section class="slide">
+      <h2 class="shout">ООП <br>краткая теория</h2>
+    </section>
+    <section class="slide">
+      <h2><mark>ООП</mark></h2>
+      <p> – это наука о том, как делать правильную архитектуру.  </p>
+      <h2><mark>Класс</mark> </h2>
+      <p>в объектно-ориентированной разработке - это шаблон/программный код, предназначенный для создания объектов и методов.</p>
+    </section>
+    <section class="slide">
+      <h2 class="shout">НО!</h2>
+    </section>
+    <section class="slide">
+      <h2>ООП – это не просто объекты.</h2>
+      <p>В JavaScript объекты часто используются просто как коллекции. </p>
+      <p>Например, встроенный объект Math содержит функции (Math.sin, Math.pow, …) и данные (константа Math.PI). </p>
+      <p>При таком использовании объектов мы не можем сказать, что «применён объектно-ориентированный подход». В частности, никакую «единую сущность» Math из себя не представляет, это просто коллекция независимых функций с общим префиксом Math.</p>
+    </section>
+    <section class="slide">
+      <h2>Классы в JS</h2>
+      <p>В JavaScript как таковых классов нет, есть <mark>конструкторы</mark>, но их принято считать синонимами. <br> Конструктор (класс) всегда начинается с большой буквы, например, <code>LectureSlide</code></p>
+      <p>Организация конструкторов (классов): <br> - функциональный стиль - это то, как организовывали классы в предыдущих лекциях (см. <a href="#6">следующий слайд</a>). <br> - прототипный стиль (будет разобран позже).</p>
+    </section>
+    <section class="slide slide-prism"> 
+      <div>
+        <pre class="line-numbers"><code class="language-javascript">'use strict'
+
+function User(name) {
+
+	this.sayHi = function() {
+		alert( "Привет, я " + name );
+	};
+
+	this.showHi = function() {
+		console.log( "Привет, я " + name );
+	};
+
+}
+
+var vasya = new User("Вася"); // создали пользователя
+vasya.sayHi(); // пользователь умеет говорить "Привет"</code></pre>
+      </div>
+    </section>
+    <section class="slide">
+      <h2 class="shout">Внутренний и внешний интерфейс</h2>
+    </section>
+    <section class="slide">
+      <p>Один из важнейших принципов ООП – отделение внутреннего интерфейса от внешнего.</p>
+      <p><mark>Внутренний интерфейс</mark> – это свойства и методы, доступ к которым может быть осуществлен только из других методов объекта, их также называют <mark>«приватными»</mark> (есть и другие термины, встретим их далее).</p>
+      <p><mark>Внешний интерфейс</mark> – это свойства и методы, доступные снаружи объекта, их называют <mark>«публичными»</mark>.</p>
+      <p class="note">Метод - это функция. <br> Свойство - это переменная.</p>
+    </section>
+    <section class="slide">
+      <h2>Визуальный пример внутреннего и внешнего интерфейса на примере кофеварки </h2>
+      <p>См. <a href="#10">следующий слайд</a></p>
+      <p class="note">Подробное описание см. на сайте <a href="http://learn.javascript.ru/internal-external-interface" target="_blank">learn.javascript.ru</a></p>
+    </section>
+    <section class="slide">
+      <div class="col-50">
+        <p>Внешний</p><img src="http://learn.javascript.ru/article/internal-external-interface/coffee.jpg">
+      </div>
+      <div class="col-50">
+        <P>Внутренний</P><img src="http://learn.javascript.ru/article/internal-external-interface/coffee-inside.jpg">
+      </div>
+    </section>
+    <section class="slide">
+      <p>Снаружи нам доступно: кнопка включения, индикатор, возможность наливать воду в чашку и .др</p>
+      <p>Но внутри - масса деталей. Мы можем пользоваться ей не зная, что происходит внутри.</p>
+    </section>
+    <section class="slide">
+      <p>Если на примере кода JavaScript, то в библиотеке какого-нибудь слайдера: <br> - внешний интерфейс - это api библиотеки: методы, события, которыми мы можем пользоваться и влиять на поведение слайдера <br> - внутренний - это то, как слайдер вообще работает, на что мы повлиять или вообще не можем, или можем, передавая только настройки. Но, все равно, то, как слайдер работает, останется неизменным.</p>
+    </section>
+    <section class="slide">
+      <h2>Публичные и приватные свойства/методы в JavaScript</h2>
+    </section>
+    <section class="slide">
+      <p>Вообще, в языке JavaScript нет четкого указания типа свойства/метода, как, например, в php. Нет объявления <code>public getName()</code> или <code>private someResult</code>.</p>
+      <p>Термины «приватное свойство/метод», «публичное свойство/метод» относятся лишь к общей теории ООП. А их конкретная реализация в языке программирования может быть различной.</p>
+      <p>В JavaScript ООП-принцип «приватное/публичное свойство/метод» реализован через область видимости, контекст вызова и замыкания.</p>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">// Пример публичного и приватного свойства объекта
+
+'use strict' 
+
+function CoffeeMachine( power ) {
+	// Количество воды в кофеварке
+	// считается публичным свойством, 
+	// т.к. переменная доступна снаружи объекта,
+	// см. строку 22
+	this.waterAmount = 0; 
+
+	// power - локальная переменная - она считается приватным свойством,
+	// т.к. доступа из-вне к ней нет.
+	// Вызвать coffeeMachine.power (на строке 20) не получится
+	alert( 'Создана кофеварка мощностью: ' + power + ' ватт' );
+}
+
+// создать кофеварку
+var coffeeMachine = new CoffeeMachine(100);
+
+// залить воды
+coffeeMachine.waterAmount = 200;
+
+// Основной вывод:
+// - все локальные переменные - это приватные свойства
+// - все свойства, записанные в this - это публичные</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">// Пример публичных и приватных методов объекта
+function CoffeeMachine(power) {
+	this.waterAmount = 0;
+
+	// расчёт времени для кипячения
+	// Как и с локальным свойством, локальная функция - это приватный метод
+	function getBoilTime() {
+		return 1000; // точная формула расчета будет позже
+	}
+
+	// что делать по окончании процесса
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+
+	// Функция, записанная в this - публичный метод (см. строку 26)
+	this.run = function() {
+		// она запустит onReady через getBoilTime() миллисекунд
+		setTimeout(onReady, getBoilTime());
+	};
+}
+
+var coffeeMachine = new CoffeeMachine(100);
+coffeeMachine.waterAmount = 200;
+
+coffeeMachine.run();</code></pre>
+    </section>
+    <section class="slide">
+      <h2>ИСПОЛЬЗОВАНИЕ_КОНСТАНТ</h2>
+      <p>Так же в классе могут объявляться константы. В ECMAScript 5 они синтаксически не реализованы. Поэтому, как и с обычными константами в js, есть договоренность, что они будут обозначаться прописными буквами через подчеркивание: <code>MY_CONSTANT</code>.</p>
+      <p>Они могут быть как приватными, так и публичными.</p>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	this.waterAmount = 0;
+
+	// Физическая константа - удельная теплоёмкость воды для getBoilTime
+	var WATER_HEAT_CAPACITY = 4200;
+
+	// расчёт времени для кипячения
+	function getBoilTime() {
+		return this.waterAmount * WATER_HEAT_CAPACITY * 80 / power; // ошибка!!!!!
+	}
+
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+
+	this.run = function() {
+		setTimeout( onReady, getBoilTime() );
+	};
+
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+coffeeMachine.waterAmount = 200;
+
+coffeeMachine.run();
+// Почему будет ошибка в строке 9? (вспоминаем 2 предыдущие лекции)</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	this.waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	// В this.run() вызывается внутренний метод getBoilTime().
+	// В getBoilTime() используется this.waterAmount
+	// А чему равен this при простом вызове функции?
+	// В современном стандарте он будет undefined (в старом – window),
+	// из-за чего и возникает ошибка
+	function getBoilTime() {
+		return this.waterAmount * WATER_HEAT_CAPACITY * 80 / power; // ошибка!!!!!
+	}
+
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+
+	this.run = function() {
+		setTimeout( onReady, getBoilTime() );
+	};
+
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+coffeeMachine.waterAmount = 200;
+coffeeMachine.run();</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	this.waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	function getBoilTime() {
+		return this.waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+
+	// Поэтому, один из вариантов - это явно указать контекст через .call()
+	this.run = function() {
+		setTimeout( onReady, getBoilTime.call( this ) );
+	};
+
+	// Такой подход будет работать, но он не очень удобен.
+	// Т.к. при каждом вызове getBoilTime() всегда придется явно указывать контекст
+	// и писать getBoilTime.call( this ).
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+coffeeMachine.waterAmount = 200;
+
+coffeeMachine.run();</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	this.waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	// Другой вариант - это привязка к контексту через .bind( this )
+	function getBoilTime() {
+		return this.waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}.bind( this );
+
+	// Это решение тоже будет работать,
+	// теперь функцию можно вызывать как и раньше без использования .call(),
+	// но объявление функции стало не стандартным и менее красивым.
+	
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+	
+	this.run = function() {
+		setTimeout( onReady, getBoilTime() );
+	};
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+coffeeMachine.waterAmount = 200;
+
+coffeeMachine.run();</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	this.waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	// Поэтому, самый удобный и часто применяемый способ решения - 
+	// это предварительно сохранить ссылку на this во вспомогательной переменной self
+	var self = this;	
+
+	// И обращаться уже к ней,
+	// т.е. теперь getBoilTime получает self из замыкания.
+	function getBoilTime() {
+		return self.waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	function onReady() {
+		alert( 'Кофе готово!' );
+	}
+	
+	this.run = function() {
+		setTimeout( onReady, getBoilTime() );
+	};
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+coffeeMachine.waterAmount = 200;
+coffeeMachine.run();</code></pre>
+    </section>
+    <section class="slide">
+      <p><b>Вывод по применению приватных методов</b></p>
+      <p>Если в приватном (локальном) методе используется <code>this</code>, то можно использовать любой способ из выше перечисленных, но необходимо знать их особенности: <br> 1) если задавать контекст через <code>.call()</code> - это значит использовать <code>.call()</code> при каждом вызове приватного метода <br> 2) если задавать контекст через <code>.bind()</code> - можно использовать вызов метода не задумываясь о контексте, но объяевлние функции получается не стандарнтым <br> 3) если сохранять <code>this</code> во вспомогательную переменную <code>self</code>, то уже ее использовать во всех приватных методах, вместо <code>this</code></p>
+    </section>
+    <section class="slide">
+      <h2>Геттеры и сеттеры</h2>
+      <p>Для управляемого доступа к состоянию объекта используют специальные функции, так называемые «геттеры» и «сеттеры».</p>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">function CoffeeMachine( power ) {
+	var WATER_HEAT_CAPACITY = 4200;
+	var self = this;
+
+	// публичное свойство, в которое можно записать любое количество воды
+	this.waterAmount = 0;
+
+	function getBoilTime() {
+		return self.waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	function onReady() { alert( 'Кофе готово!' ); }
+	
+	this.run = function() { setTimeout( onReady, getBoilTime() ); };
+}
+
+var coffeeMachine = new CoffeeMachine(1000);
+// Можно присвоить столько
+coffeeMachine.waterAmount = 200;
+// Можно столько 
+coffeeMachine.waterAmount = 1000000;
+// Можно сделать так 
+coffeeMachine.waterAmount -= 1000000;
+// Или вообще так
+coffeeMachine.waterAmount = 'пол чайника';
+// Так происходит потому, что свойство полностью доступно снаружи.</code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">// capacity - ёмкость кофеварки
+function CoffeeMachine( power, capacity ) {
+	// Для лучшего контроля над свойством его делают приватным, 
+	// а запись значения осуществляется через специальный метод, 
+	// который называют «сеттер» (setter method).
+	// Типичное название для сеттера – setСвойство,
+	// в данном примере это setWaterAmount (см. ниже)
+	var waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	function getTimeToBoil() {
+		return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	// "умная" установка свойства
+	this.setWaterAmount = function( amount ) {
+		if ( amount < 0 )
+			throw new Error( "Значение должно быть положительным" );
+		
+		if ( amount > capacity ) 
+			throw new Error( "Нельзя залить воды больше, чем " + capacity );
+
+		waterAmount = amount;
+	};
+
+	function onReady() { alert( 'Кофе готов!' ); }
+
+	this.run = function() { setTimeout( onReady, getTimeToBoil() ); };
+}
+
+var capacity = 500; // capacity - ёмкость кофеварки
+var coffeeMachine = new CoffeeMachine( 1000, capacity );
+
+coffeeMachine.setWaterAmount( 600 ); // упс, ошибка!
+ </code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">// capacity - ёмкость кофеварки
+function CoffeeMachine( power, capacity ) {
+	var waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	function getTimeToBoil() {
+		return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	// "умная" установка свойства
+	this.setWaterAmount = function( amount ) {
+		if ( amount < 0 )
+			throw new Error( "Значение должно быть положительным" );
+		
+		if ( amount > capacity ) 
+			throw new Error( "Нельзя залить воды больше, чем " + capacity );
+
+		waterAmount = amount;
+	};
+
+	// Теперь waterAmount – внутреннее свойство, его можно записать (через сеттер), 
+	// но, увы, нельзя прочитать.
+	// Для того, чтобы дать возможность внешнему коду узнать его значение, 
+	// создадим специальную функцию – «геттер» (getter method).
+	// Геттеры обычно имеют название вида getСвойство, в данном случае getWaterAmount
+	this.getWaterAmount = function() {
+		return waterAmount;
+	};
+
+	function onReady() { alert( 'Кофе готов!' ); }
+
+	this.run = function() { setTimeout( onReady, getTimeToBoil() ); };
+}
+
+var capacity = 500; // capacity - ёмкость кофеварки
+var coffeeMachine = new CoffeeMachine( 1000, capacity );
+
+coffeeMachine.setWaterAmount( 450 ); 
+alert( coffeeMachine.getWaterAmount() ); // 450
+ </code></pre>
+    </section>
+    <section class="slide slide-prism"> 
+      <pre class="line-numbers"><code class="language-javascript">// capacity - ёмкость кофеварки
+function CoffeeMachine( power, capacity ) {
+	var waterAmount = 0;
+	var WATER_HEAT_CAPACITY = 4200;
+
+	function getTimeToBoil() {
+		return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+	}
+
+	// Для большего удобства иногда делают единый метод, 
+	// который называется так же, как свойство и отвечает и за запись и за чтение.
+	// При вызове без параметров такой метод возвращает свойство, 
+	// а при передаче параметра – назначает его.
+	this.waterAmount = function( amount ) {
+		// вызов без параметра, значит режим геттера, возвращаем свойство
+		if ( !arguments.length ) 
+			return waterAmount;
+
+		// иначе режим сеттера
+		if ( amount < 0 ) 
+			throw new Error( "Значение должно быть положительным" );
+		
+		if ( amount > capacity )
+			throw new Error( "Нельзя залить воды больше, чем " + capacity );
+
+		waterAmount = amount;
+	};
+
+	// Единый геттер-сеттер используется реже, чем две отдельные функции, 
+	// но в некоторых JavaScript-библиотеках, например, jQuery 
+	// подобный подход принят на уровне концепта.
+	
+
+	function onReady() { alert( 'Кофе готов!' ); }
+
+	this.run = function() { setTimeout( onReady, getTimeToBoil() ); };
+}
+
+var capacity = 500; // capacity - ёмкость кофеварки
+var coffeeMachine = new CoffeeMachine( 1000, capacity );
+
+// пример использования
+coffeeMachine.waterAmount(450);
+alert( coffeeMachine.waterAmount() ); // 450
+ </code></pre>
+    </section>
+    <section class="slide">
+      <p><b>Выводы</b> <br> - Для большего контроля над присвоением и чтением значения, вместо свойства делают «функцию-геттер» и «функцию-сеттер», геттер возвращает значение, сеттер – устанавливает. <br> - Если свойство предназначено только для чтения, то может быть только геттер, только для записи – только сеттер. <br> - В качестве альтернативы паре геттер/сеттер применяют единую функцию, которая без аргументов ведёт себя как геттер, а с аргументом – как сеттер. </p>
+    </section>
+    <section class="slide">
+      <p>Кроме выше описанного с единым геттером-сеттером сложнее разбираться в большом коде, т.к. иногда бывает сложно отследить, где именно значения задаются, потому что функция имеет одно имя для 2-х разных действий, аналогично и с публичным свойством или глобальной переменной.</p>
+      <p>Поэтому рекомендую использовать геттер и сеттер как две различные функции.</p>
+    </section>
+    <section class="slide">
+      <h2>Литеритура</h2>
+      <p> <a target="_blank" href="http://learn.javascript.ru/oop">learn.javascript.ru - ООП</a></p>
+    </section>
+  </body>
+  <script src="js/shower.min.js"></script>
+  <script src="js/common.min.js"></script>
+</html>

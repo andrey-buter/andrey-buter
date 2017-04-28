@@ -1,0 +1,73 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+				
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+				
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+				
+				// petya.sayMyName();
+				
+				// Вроде, мы уже добились чего хотели
+				var f = function() {
+					// this = window
+					
+					petya.sayMyName();
+				}
+				
+				setTimeout( f, 2000 );
+				
+				// все написали, что хотели
+				// и мне уже переменная petya не нужна
+				// Я могу использовать ее для чего-то другого
+				petya = null;
+				
+				// И посмотрим в консоли, 
+				// как это отразилось на программе
+				
+				/* Примерный код setTimeout() 
+				function setTimeout( fn, ms ) {
+					// ... подождет столько ms
+					// и после этого сделает
+					f.call( window );
+				}
+				*/
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+					f: #f2
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				#f2 {
+					[[scope]]: #f2_LE
+					[[code]]: ...
+				}
+				
+				#f2_LE {
+				
+				}
+				
+				
+
+

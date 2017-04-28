@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Лекция 5 - this</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="styles/screen-16x10.css" type="text/css" rel="stylesheet">
+    <link href="styles/styles.css" type="text/css" rel="stylesheet">
+    <script src="//localhost:35729/livereload.js"></script>
+  </head>
+  <body class="shower list">
+    <header class="caption">
+      <h1>ООП - this</h1>
+    </header>
+    <section class="slide">
+      <h2 class="shout">.bind()</h2>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+// Есть функция
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+// Есть объект
+var petya = { // #f2
+	name: 'Petya' + 'test',
+	sayMyName: sayMyName
+}
+
+// Выводим имя
+petya.sayMyName();
+
+// сделаем небольшое улучшение.
+// Сделаем, чтоб имя отображалось 
+// с задержкой в 2с с помощью setTimeout()
+
+
+
+ </code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// ф-ция setTimeout принимает 2 аргумента
+// 1-й - это ссылка на функцию, образно #f1
+// 2-й - через какое время запустить в мс
+setTimeout( #f1, 2000 );
+
+
+
+
+
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// естесственно код с #f1 не валидный, 
+// поэтому будет так
+setTimeout( sayMyName, 2000 );
+
+// т.е. sayMyName будет запущена через 2с
+
+
+
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// ...и видим в консоли, 
+// что в качесте this вывелся объект window.
+// Это особенность работы setTimeout()
+setTimeout( sayMyName, 2000 );
+
+
+
+
+
+
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+setTimeout( sayMyName, 2000 );
+
+// Если написать примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Но нам же нужно, чтоб в качестве this
+// отобразился petya!
+// Поэтому пробуем так и смотрим результат
+// (без скобок!!! - т.к. это ссылка на функцию)
+setTimeout( petya.sayMyName, 2000 );
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Ожидаемо вывелся Window
+setTimeout( petya.sayMyName, 2000 );
+
+// Почему так?
+// petya.sayMyName - это ссылка на функцию #f1
+// Туда, как и в примере с просто sayMyName
+// (это тоже ссылка на #f1)
+// передался и отобразился Window
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Но нам же надо вывести petya
+// Поэтому делаем хитрость
+setTimeout( function() {
+	// уже знаем, что в этой функции
+	// this = window
+	// И для нас это уже не имеет значение
+	// Нам важно, какой this получит sayMyName
+	// И делаем так:
+	petya.sayMyName();
+	// оно ничем не отличается от 12 строки
+	// И, получается, мы обманываем setTimeout
+}, 2000 );
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Т.е. было сделано следующее
+var f = function() {
+	// this = window
+	
+	// т.к. в ф-ции нет petya,
+	// то petya берется из родительского scope
+	petya.sayMyName();
+}
+
+setTimeout( f, 2000 );
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#f2 {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#f2_LE {
+
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Вроде, мы уже добились чего хотели
+var f = function() {
+	// this = window
+	
+	petya.sayMyName();
+}
+
+setTimeout( f, 2000 );
+
+// все написали, что хотели
+// и мне уже переменная petya не нужна
+// Я могу использовать ее для чего-то другого
+petya = null;
+
+// И посмотрим в консоли, 
+// как это отразилось на программе
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#f2 {
+	[[scope]]: #f2_LE
+	[[code]]: ...
+}
+
+#f2_LE {
+
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Ошибка!
+var f = function() {
+	// this = window
+	
+	petya.sayMyName();
+}
+
+	// Конечно, 
+	// когда выполнилась эта строчка
+	// браузер запланировал выполнить f
+	// через 2с 
+setTimeout( f, 2000 );
+
+// и продолжил работать дальше
+petya = null;
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#f2 {
+	[[scope]]: #f2_LE
+	[[code]]: ...
+}
+
+#f2_LE {
+
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+var f = function() {
+	// this = window
+	
+	// А через 2с
+	// браузер начал выполнять функцию f 
+	// и начал искать petya. 
+	// А в petya то теперь null. 
+	petya.sayMyName();
+}
+
+setTimeout( f, 2000 );
+
+petya = null;
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#f2 {
+	[[scope]]: #f2_LE
+	[[code]]: ...
+}
+
+#f2_LE {
+
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+var f = function() {
+	// this = window
+	
+	// Т.е., суть проблемы:
+	// чтоб сработал этот код через 2с,
+	// мы вынуждены сохранять переменную petya
+	petya.sayMyName();
+}
+
+setTimeout( f, 2000 );
+
+petya = null;
+
+/* Примерный код setTimeout() 
+function setTimeout( fn, ms ) {
+	// ... подождет столько ms
+	// и после этого сделает
+	f.call( window );
+}
+*/</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#f2 {
+	[[scope]]: #f2_LE
+	[[code]]: ...
+}
+
+#f2_LE {
+
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+// Как тогда можно решить проблему?
+// Можно использовать замыкания.
+// Например:
+
+function createWrapper() {
+	var tempPetya = petya; // #f1
+	
+	return function() { 
+		tempPetya.sayMyName();
+	}
+}
+
+// в f теперь хранится ссылка на новую ф-цию,
+// которую вернул createWrapper()
+var f = createWrapper();
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// petya.sayMyName();
+
+function createWrapper() {
+	// #LE_createWrapper_0 = { tempPetya: #1 }
+	var tempPetya = petya; // #f1
+	
+	// это функция #f2	
+	// и scope у нее теперь не window
+	// как было раньше, 
+	// а #LE_createWrapper_0
+	return function() { 
+	// [[scope]]: #LE_createWrapper_0
+		tempPetya.sayMyName();
+	}
+}
+
+var f = createWrapper();
+
+setTimeout( f, 2000 );
+
+// и теперь спокойно можно
+// делать с petya все, что угодно
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// А как сделать так, чтоб
+// createWrapper стал универсальным
+// и мог работать не только с petya.sayMyName()
+
+function createWrapper() {
+	var tempPetya = petya;
+	
+	return function() { 
+	// Мы можем сделать тождественное преобразование
+		tempPetya.sayMyName.call( tempPetya );
+	}
+}
+
+var f = createWrapper();
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+function createWrapper() {
+	var tempPetya = petya;
+	// Таже мы можем создать переменную fn,
+	// которая сразу сохранит ссылку на функцию
+	var fn = tempPetya.sayMyName;
+	
+	return function() { 
+		fn.call( tempPetya );
+	}
+}
+
+var f = createWrapper();
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+function createWrapper() {
+	// переименуем tempPetya в context
+	/* было:
+	var tempPetya = petya;
+	var fn = tempPetya.sayMyName;
+	
+	return function() { 
+		fn.call( tempPetya );
+	}
+	*/
+	var context = petya;
+	var fn = context.sayMyName;
+	
+	return function() { 
+		fn.call( context );
+	}
+}
+
+var f = createWrapper();
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// Теперь, логично было бы передвать
+// переменные параметрами функции
+function createWrapper( fn, context ) {
+	// var context = petya;
+	// var fn = context.sayMyName;
+	
+	return function() { 
+		fn.call( context );
+	}
+}
+
+// и тут передадим значения
+var f = createWrapper( petya.sayMyName, petya );
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// И последнее
+// createWrapper переименовываем в bind -
+// эта функция берет какой-то метод
+// и привязывает к нему this навсегда
+function bind( fn, context ) {
+	return function() { 
+		fn.call( context );
+	}
+}
+
+var f = bind( petya.sayMyName, petya );
+
+// и как б не запускалась f,
+// у нее в this всегда будет petya
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+    <section class="slide slide-prism"> 
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">'use strict' 
+
+function sayMyName(x, y) {
+	console.log( this );
+}
+
+var petya = {
+	name: 'Petya',
+	sayMyName: sayMyName
+}
+
+// Т.к. bind очень полезна, 
+// то она, как и call,
+// есть в стандартной реализации
+function bind( fn, context ) {
+	return function() { 
+		fn.call( context );
+	}
+}
+
+var f = bind( petya.sayMyName, petya );
+
+// call сразу вызывает с нужным контекстом
+petya.sayMyName.call( petya );
+
+// А bind помогает создать
+// новую функцию-обертку с нужным контекстов,
+// которую потом можно запустить
+var f = petya.sayMyName.bind( petya );
+f();
+
+// И получается, call эквивалентен такому
+petya.sayMyName.bind( petya )();
+
+setTimeout( f, 2000 );
+
+petya = null;
+</code></pre>
+      </div>
+      <div class="col-50">
+        <pre class="line-numbers"><code class="language-javascript">window {
+	sayMyName: #f1
+	petya: #1
+	f: #f2
+}
+
+#f1 {
+	[[code]]: {
+				console.log(this)
+			  }
+}
+
+#1 {
+	name: 'Petya'
+	sayMyName: #f1
+}
+
+#createWrapper {
+	[[scope]]: window
+	[[code]]: ...
+}
+
+#LE_createWrapper_0 {
+
+}
+
+#f2 {
+	[[scope]]: #LE_createWrapper_0
+	[[code]]: ...
+}</code></pre>
+      </div>
+    </section>
+  </body>
+  <script src="js/shower.min.js"></script>
+  <script src="js/common.min.js"></script>
+</html>

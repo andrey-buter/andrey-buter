@@ -1,0 +1,91 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+
+				// Т.к. bind очень полезна, 
+				// то она, как и call,
+				// есть в стандартной реализации
+				function bind( fn, context ) {
+					return function() { 
+						fn.call( context );
+					}
+				}
+
+				var f = bind( petya.sayMyName, petya );
+
+				// call сразу вызывает с нужным контекстом
+				petya.sayMyName.call( petya );
+
+				// А bind помогает создать
+				// новую функцию-обертку с нужным контекстов,
+				// которую потом можно запустить
+				var f = petya.sayMyName.bind( petya );
+				f();
+
+				// И получается, call эквивалентен такому
+				petya.sayMyName.bind( petya )();
+
+				setTimeout( f, 2000 );
+
+				petya = null;
+			 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+					f: #f2
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				#createWrapper {
+					[[scope]]: window
+					[[code]]: ...
+				}
+				
+				#LE_createWrapper_0 {
+				
+				}
+				
+				#f2 {
+					[[scope]]: #LE_createWrapper_0
+					[[code]]: ...
+				}
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+
+
+
+
+				
+			
+			
+
+

@@ -1,0 +1,72 @@
+section.slide.slide-prism 
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				'use strict' 
+				
+				function sayMyName(x, y) {
+					console.log( this );
+				}
+				
+				var petya = {
+					name: 'Petya',
+					sayMyName: sayMyName
+				}
+				
+				// petya.sayMyName();
+				
+				// Ошибка!
+				var f = function() {
+					// this = window
+					
+					petya.sayMyName();
+				}
+				
+					// Конечно, 
+					// когда выполнилась эта строчка
+					// браузер запланировал выполнить f
+					// через 2с 
+				setTimeout( f, 2000 );
+				
+				// и продолжил работать дальше
+				petya = null;
+				
+				/* Примерный код setTimeout() 
+				function setTimeout( fn, ms ) {
+					// ... подождет столько ms
+					// и после этого сделает
+					f.call( window );
+				}
+				*/
+	div.col-50
+		pre.line-numbers
+			code.language-javascript.
+				window {
+					sayMyName: #f1
+					petya: #1
+					f: #f2
+				}
+				
+				#f1 {
+					[[code]]: {
+								console.log(this)
+							  }
+				}
+				
+				#1 {
+					name: 'Petya'
+					sayMyName: #f1
+				}
+				
+				#f2 {
+					[[scope]]: #f2_LE
+					[[code]]: ...
+				}
+				
+				#f2_LE {
+				
+				}
+				
+				
+
+

@@ -1,0 +1,68 @@
+.col-50 {
+	width: 50%;
+	float: left;
+	box-sizing:  border-box;
+	padding: 0 20px;
+}
+.clear {
+	clear: both;
+}
+.slide.my-code {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	font-size: 16px;
+}
+.slide.my-code pre {
+	background-color: #141414;
+	color: #fff;
+}
+.slide.my-code pre code {
+	width: calc(100% + 100px);
+	margin-left: -75px;
+}
+.slide pre code:not(:only-child)::before {
+	margin-left: -45px;
+	padding-left: 10px;
+	background-color: #333333;
+}
+.slide.my-code:before {
+	content: '';
+	height: 100%;
+	width: 2px;
+	background-color: #585a5e;
+	position: absolute;
+	left: 50%;
+	top: 0;
+}
+.slide::after {
+	background: none;
+	background: red;
+	height: 50px;
+	padding-top: 0;
+	right: 0;
+}
+.green {
+	color: #8f9d6a;
+}
+.gray {
+	color: gray;
+}
+.bold {
+	font-weight: bold;
+}
+.func {
+	color: #9b703f;
+	background: none !important;
+}
+.yellow {
+	color: #f9ee98;
+	background: none !important;
+}
+.func2 {
+	background: none !important;
+	color: #7587a6;
+}
+.slide pre mark {
+	z-index: 1;
+}

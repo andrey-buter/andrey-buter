@@ -1,0 +1,29 @@
+section.slide.slide-prism 
+	pre.line-numbers
+		code.language-javascript.
+			function CoffeeMachine( power ) {
+				var WATER_HEAT_CAPACITY = 4200;
+				var self = this;
+
+				// публичное свойство, в которое можно записать любое количество воды
+				this.waterAmount = 0;
+
+				function getBoilTime() {
+					return self.waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+				}
+
+				function onReady() { alert( 'Кофе готово!' ); }
+				
+				this.run = function() { setTimeout( onReady, getBoilTime() ); };
+			}
+
+			var coffeeMachine = new CoffeeMachine(1000);
+			// Можно присвоить столько
+			coffeeMachine.waterAmount = 200;
+			// Можно столько 
+			coffeeMachine.waterAmount = 1000000;
+			// Можно сделать так 
+			coffeeMachine.waterAmount -= 1000000;
+			// Или вообще так
+			coffeeMachine.waterAmount = 'пол чайника';
+			// Так происходит потому, что свойство полностью доступно снаружи.
